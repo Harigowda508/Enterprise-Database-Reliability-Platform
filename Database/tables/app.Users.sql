@@ -1,0 +1,8 @@
+CREATE TABLE app.Users
+(
+    UserId        INT IDENTITY PRIMARY KEY,
+    UserName      VARCHAR(100) NOT NULL,
+    Email         VARCHAR(150) NOT NULL UNIQUE,
+    IsActive      BIT NOT NULL DEFAULT 1,
+    CreatedDate  DATETIME2 NOT NULL DEFAULT SYSUTCDATETIME()
+);
