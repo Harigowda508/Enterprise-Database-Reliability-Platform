@@ -1,3 +1,6 @@
+IF OBJECT_ID('app.Accounts','U') IS NULL
+BEGIN
+    PRINT 'Creating Accounts table';
 CREATE TABLE app.Accounts
 (
     AccountId     INT IDENTITY PRIMARY KEY,
@@ -8,3 +11,6 @@ CREATE TABLE app.Accounts
     CONSTRAINT FK_Accounts_Users 
         FOREIGN KEY (UserId) REFERENCES app.Users(UserId)
 );
+END
+ELSE
+    PRINT 'Accounts table already exists';

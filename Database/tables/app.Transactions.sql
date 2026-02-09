@@ -1,3 +1,6 @@
+IF OBJECT_ID('app.Transactions','U') IS NULL
+BEGIN
+    PRINT 'Creating Transactions table';
 CREATE TABLE app.Transactions
 (
     TransactionId   BIGINT IDENTITY PRIMARY KEY,
@@ -8,3 +11,6 @@ CREATE TABLE app.Transactions
     CONSTRAINT FK_Transactions_Accounts 
         FOREIGN KEY (AccountId) REFERENCES app.Accounts(AccountId)
 );
+END
+ELSE
+    PRINT 'Transactions table already exists';
