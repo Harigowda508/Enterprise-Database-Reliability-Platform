@@ -1,0 +1,1 @@
+sqlcmd -S . -d DBA_DAILY_REPORT -U USERNAME -P "PASSWORD" -i "D:\DATAEXT\DailyReports\Daily_Backup_Report.sql" -o "D:\DATAEXT\OUTPUT\Daily_Backup_Report.csv" -s "," -W && powershell -ExecutionPolicy Bypass -File "D:\DATAEXT\Ps1\Daily_Backup_report_success.ps1"
