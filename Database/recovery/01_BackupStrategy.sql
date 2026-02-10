@@ -1,0 +1,15 @@
+-- full backup every day
+BACKUP DATABASE EDRDP
+TO DISK = 'C:\Backups\EDRDP_Full.bak'
+WITH INIT, COMPRESSION;
+
+
+--every 6 hours
+BACKUP DATABASE EDRDP
+TO DISK = 'C:\Backups\EDRDP_Diff.bak'
+WITH DIFFERENTIAL, INIT, COMPRESSION;
+
+--every 15 minutes
+BACKUP LOG EDRDP
+TO DISK = 'C:\Backups\EDRDP_Log.trn'
+WITH INIT, COMPRESSION;

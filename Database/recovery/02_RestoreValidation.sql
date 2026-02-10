@@ -1,0 +1,9 @@
+RESTORE DATABASE EDRDP_Test
+FROM DISK = 'C:\Backups\EDRDP_Full.bak'
+WITH MOVE 'EDRDP' TO 'C:\Data\EDRDP_Test.mdf',
+     MOVE 'EDRDP_log' TO 'C:\Data\EDRDP_Test.ldf',
+     NORECOVERY;
+
+RESTORE LOG EDRDP_Test
+FROM DISK = 'C:\Backups\EDRDP_Log.trn'
+WITH RECOVERY;
