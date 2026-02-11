@@ -1,0 +1,6 @@
+CREATE SCHEMA app;
+go
+CREATE SCHEMA audit;
+go
+CREATE SCHEMA monitoring;
+go

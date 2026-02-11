@@ -1,0 +1,7 @@
+use master 
+go
+IF DB_ID('EDRDP_DEV') IS NULL
+BEGIN
+    CREATE DATABASE EDRDP_DEV;
+END;
+GO
