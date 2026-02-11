@@ -1,4 +1,4 @@
-$server = "localhost"
+$server = "CSPLBLRLP403\HARISHINSTANCE"
 $database = "EDRDP_DEV"
 
 # Step 1: Create database (run against master)
