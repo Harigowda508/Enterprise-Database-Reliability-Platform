@@ -1,0 +1,21 @@
+name: Database Deployment Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install SQLCMD
+        run: choco install sqlcmd -y
+
+      - name: Deploy Database Scripts
+        run: |
+          sqlcmd -S localhost -d EDRDP_DEV -i database/deployment/01_CreateDatabase.sql

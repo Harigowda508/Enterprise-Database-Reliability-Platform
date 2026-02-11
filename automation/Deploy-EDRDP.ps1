@@ -1,4 +1,4 @@
-$server = "CSPLBLRLP403\HARISHINSTANCE"
+$server = "localhost"
 $database = "EDRDP_DEV"
 
 $sqlFiles = Get-ChildItem ".\database\**\*.sql" | Sort-Object Name
