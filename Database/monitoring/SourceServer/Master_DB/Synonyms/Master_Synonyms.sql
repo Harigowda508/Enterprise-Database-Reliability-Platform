@@ -1,6 +1,0 @@
-create synonym t_BlockingSessions FOR [Reporting_serverIp].[DBA_DAILY_REPORT].[DBO].[t_BlockingSessions]
-create synonym t_ClientTableSizeLog FOR [Reporting_serverIp].[DBA_DAILY_REPORT].[DBO].[t_ClientTableSizeLog]
-create synonym t_DBAEodException FOR [Reporting_serverIp].[DBA_DAILY_REPORT].[DBO].[t_DBAEodException]
-create synonym t_DeadLockReport FOR [Reporting_serverIp].[DBA_DAILY_REPORT].[DBO].[t_DeadLockReport]
-create synonym t_Fetchlogindetails FOR [Reporting_serverIp].[DBA_DAILY_REPORT].[DBO].[t_Fetchlogindetails]
-create synonym t_tempdbLogSpace FOR [Reporting_serverIp].[DBA_DAILY_REPORT].[dbo].[t_tempdbLogSpace]
