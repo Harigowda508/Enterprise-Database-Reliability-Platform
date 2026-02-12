@@ -1,29 +1,55 @@
 $ErrorActionPreference = "Stop"
-$server = "CSPLBLRLP403\HARISHINSTANCE"
+
+# -----------------------------
+# Configuration
+# -----------------------------
+$server   = "CSPLBLRLP403\HARISHINSTANCE"
 $database = "EDRDP_DEV"
-
-# Step 1: Create database (run against master)
-sqlcmd -S $server -d master -i  "$basePath\00_CreateDatabase.sql"
-
-
 $basePath = "D:\Enterprise-Database-Reliability-Platform\Database"
 
+Write-Host "Starting Deployment..."
+Write-Host "Server: $server"
+Write-Host "Database: $database"
+Write-Host ""
+
+# -----------------------------
+# Step 1: Create Database
+# -----------------------------
+Write-Host "Creating database (if not exists)..."
+
+sqlcmd -S $server `
+       -U sa `
+       -P "Password@12345" `
+       -d master `
+       -i "$basePath\00_CreateDatabase.sql"
+
+if ($LASTEXITCODE -ne 0) {
+    Write-Host "Database creation failed!"
+    exit 1
+}
+
+# -----------------------------
+# Step 2: Deploy All Objects
+# -----------------------------
 $sqlFiles = Get-ChildItem -Path $basePath -Recurse -Filter *.sql |
-            Where-Object { $_.FullName -notmatch "recovery" } |
+            Where-Object { $_.FullName -notmatch "recovery" -and $_.Name -ne "00_CreateDatabase.sql" } |
             Sort-Object FullName
-try {
 
-    foreach ($file in $sqlFiles) {
-        Write-Host "Executing $($file.FullName)"
-        sqlcmd -S $server -U sa -P Password@12345 -d EDRDP_DEV -i $file.sql
+foreach ($file in $sqlFiles) {
 
+    Write-Host "Executing $($file.FullName)"
 
+    sqlcmd -S $server `
+           -U sa `
+           -P "Password@12345" `
+           -d $database `
+           -i "$($file.FullName)"
+
+    if ($LASTEXITCODE -ne 0) {
+        Write-Host "Error executing $($file.Name)"
+        exit 1
     }
-
-    Write-Host "Deployment Completed Successfully"
-
 }
-catch {
-    Write-Host "Deployment Failed!"
-    Write-Host $_.Exception.Message
-}
+
+Write-Host ""
+Write-Host "Deployment Completed Successfully"
