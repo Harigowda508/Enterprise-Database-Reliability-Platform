@@ -1,0 +1,15 @@
+-- full backup every day
+BACKUP DATABASE EDRDP_DEV
+TO DISK = 'D:\Harish\Backup\EDRDP_Full.bak'
+WITH INIT, COMPRESSION;
+
+
+--every 6 hours
+BACKUP DATABASE EDRDP_DEV
+TO DISK = 'D:\Harish\Backup\EDRDP_Diff.bak'
+WITH DIFFERENTIAL, INIT, COMPRESSION;
+
+--every 15 minutes
+BACKUP LOG EDRDP_DEV
+TO DISK = 'D:\Harish\Backup\EDRDP_Log.trn'
+WITH INIT, COMPRESSION;
