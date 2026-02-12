@@ -3,8 +3,8 @@ $server = "CSPLBLRLP403\HARISHINSTANCE"
 $database = "EDRDP_DEV"
 
 # Step 1: Create database (run against master)
-sqlcmd -S $server -d master -i "sqlcmd -i "$basePath\00_CreateDatabase.sql"
-"
+sqlcmd -S $server -d master -i  "$basePath\00_CreateDatabase.sql"
+
 
 $basePath = "D:\Enterprise-Database-Reliability-Platform\Database"
 
