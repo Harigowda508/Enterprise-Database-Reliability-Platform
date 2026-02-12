@@ -8,12 +8,15 @@ sqlcmd -S $server -d master -i  "$basePath\00_CreateDatabase.sql"
 
 $basePath = "D:\Enterprise-Database-Reliability-Platform\Database"
 
-$sqlFiles = Get-ChildItem -Path $basePath -Recurse -Filter *.sql | Sort-Object FullName
+$sqlFiles = Get-ChildItem -Path $basePath -Recurse -Filter *.sql |
+            Where-Object { $_.FullName -notmatch "recovery" } |
+            Sort-Object FullName
 try {
 
     foreach ($file in $sqlFiles) {
         Write-Host "Executing $($file.FullName)"
-        sqlcmd -S localhost -E -i $file.FullName
+        sqlcmd -S $server -E -d EDRDP_DEV -i $file.FullName
+
     }
 
     Write-Host "Deployment Completed Successfully"
