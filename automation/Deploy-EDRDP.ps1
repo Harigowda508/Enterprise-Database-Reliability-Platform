@@ -1,15 +1,25 @@
+$ErrorActionPreference = "Stop"
 $server = "CSPLBLRLP403\HARISHINSTANCE"
 $database = "EDRDP_DEV"
 
 # Step 1: Create database (run against master)
-sqlcmd -S $server -d master -i ".\database\00_DB_creation\00_CreateDatabase.sql"
+sqlcmd -S $server -d master -i "sqlcmd -i "$basePath\00_CreateDatabase.sql"
+"
 
-# Step 2: Deploy remaining scripts
-$sqlFiles = Get-ChildItem ".\database\01_deployment\*.sql" | Sort-Object Name
+$basePath = "D:\Enterprise-Database-Reliability-Platform\Database"
 
-foreach ($file in $sqlFiles) {
-    Write-Host "Executing $($file.Name)"
-    sqlcmd -S $server -d $database -i $file.FullName
+$sqlFiles = Get-ChildItem -Path $basePath -Recurse -Filter *.sql | Sort-Object FullName
+try {
+
+    foreach ($file in $sqlFiles) {
+        Write-Host "Executing $($file.FullName)"
+        sqlcmd -S localhost -E -i $file.FullName
+    }
+
+    Write-Host "Deployment Completed Successfully"
+
 }
-
-Write-Host "Deployment Completed Successfully"
+catch {
+    Write-Host "Deployment Failed!"
+    Write-Host $_.Exception.Message
+}
