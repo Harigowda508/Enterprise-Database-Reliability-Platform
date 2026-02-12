@@ -15,7 +15,7 @@ try {
 
     foreach ($file in $sqlFiles) {
         Write-Host "Executing $($file.FullName)"
-        sqlcmd -S $server -U sa -P Password@12345 -d EDRDP_DEV -i file.sql
+        sqlcmd -S $server -U sa -P Password@12345 -d EDRDP_DEV -i $file.sql
 
 
     }
